@@ -15,8 +15,7 @@ spec:
         app: reservations
     spec:
       containers:
-      - image: us-east4-docker.pkg.dev/sleepr-401716/reservations/production
-        imagePullPolicy: Always
+      - image: us-east4-docker.pkg.dev/sleepr-401716/reservations/production@sha256:57d6adc6dae082b5696216f7ced5a750dc1142dc47bc651cc87029b082350fad
         name: reservations
         env:
           - name: MONGODB_URI
