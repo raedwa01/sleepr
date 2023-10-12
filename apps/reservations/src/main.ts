@@ -4,9 +4,11 @@ import { ValidationPipe } from '@nestjs/common';
 import * as cookieParser from 'cookie-parser';
 import { Logger } from 'nestjs-pino';
 import { ConfigService } from '@nestjs/config';
-import { Transport } from '@nestjs/microservices';
+import * as mongoose from 'mongoose';
 
 async function bootstrap() {
+  // somewhere in your code
+  mongoose.set('debug', true);
   const app = await NestFactory.create(ReservationsModule);
   //  app.connectMicroservice({ transport: Transport.TCP });
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
