@@ -13,6 +13,7 @@ async function bootstrap() {
   app.useLogger(app.get(Logger));
   const configService = app.get(ConfigService);
   app.use(cookieParser());
+  console.log(configService.get('MONGODB_URI'));
   //await app.startAllMicroservices();
   await app.listen(configService.get('PORT'));
 }
