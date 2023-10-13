@@ -1,4 +1,4 @@
-FROM node:alpine AS development
+FROM 086441577496.dkr.ecr.us-west-2.amazonaws.com/alpine:latest AS development
 
 WORKDIR /usr/src/app
 
@@ -16,7 +16,7 @@ RUN pnpm install -r
 
 RUN pnpm run build auth
 
-FROM node:alpine AS production
+FROM 086441577496.dkr.ecr.us-west-2.amazonaws.com/alpine:latest AS production
 
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
