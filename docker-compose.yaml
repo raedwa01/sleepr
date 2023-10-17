@@ -1,3 +1,8 @@
+version: '3.8'
+networks:
+  default:
+    external:
+      name: local_network_dev
 services:
   reservations:
     build:
@@ -42,7 +47,10 @@ services:
     volumes:
       - .:/usr/src/app  
     env_file:
-      - ./apps/notifications/.env            
+      - ./apps/notifications/.env   
   mongo:
     image: mongo
-    
+    networks:
+      default:
+        ipv4_address: 10.5.0.11
+        
