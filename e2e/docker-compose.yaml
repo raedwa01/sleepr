@@ -1,58 +1,47 @@
 version: '3.8'
-networks:
-  test:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: 10.1.0.0/24
 services:
   e2e:
     build:
       dockerfile: ./Dockerfile
     volumes:
       - ./specs:/usr/src/app/specs
+    # tty: true
+    # command: ["/bin/sh"]
     depends_on:
       - reservations
       - auth
       - payments
       - notifications
-      - mongo
-    networks:
-      - test
+      - mysql
   reservations:
-    image: 086441577496.dkr.ecr.us-west-2.amazonaws.com/reservations:latest
+    image: reservations
     ports:
       - 3000:3000
     env_file:
       - ../apps/reservations/.env
-    networks:
-      - test
   auth:
-    image: 086441577496.dkr.ecr.us-west-2.amazonaws.com/auth:latest
+    image: auth
     ports:
       - 3001:3001
     env_file:
       - ../apps/auth/.env      
-    networks:
-      - test
   payments:
-    image: 086441577496.dkr.ecr.us-west-2.amazonaws.com/payments:latest
+    image: payments
+    ports:
+      - 3003:3003
     env_file:
       - ../apps/payments/.env     
-    networks:
-      - test
   notifications:
-    image: 086441577496.dkr.ecr.us-west-2.amazonaws.com/notifications:latest
-    env_file:
-      - ../apps/notifications/.env            
-    networks:
-      - test
-  mongo:
-    image: mongo
+    image: notifications
     ports:
-      - 27017:27017
-    networks:
-      test:
-        ipv4_address: 10.1.0.100
-              
+      - 3004:3004
+    env_file:
+      - ../apps/notifications/.env   
+  mysql:
+    image: mysql
+    env_file:
+      - ../.env
+    ports:
+      - 3306:3306
+
+        

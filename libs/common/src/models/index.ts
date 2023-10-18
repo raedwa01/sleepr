@@ -1,1 +1,2 @@
-export * from './users.schema';
+export * from './users.entity';
+export * from './roll.entity';

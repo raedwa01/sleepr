@@ -1,8 +1,4 @@
 version: '3.8'
-networks:
-  default:
-    external:
-      name: local_network_dev
 services:
   reservations:
     build:
@@ -34,6 +30,8 @@ services:
       dockerfile: ./apps/payments/Dockerfile
       target: development
     command: pnpm run start:dev payments
+    ports:
+      - 3003:3003
     volumes:
       - .:/usr/src/app  
     env_file:
@@ -44,13 +42,22 @@ services:
       dockerfile: ./apps/notifications/Dockerfile
       target: development
     command: pnpm run start:dev notifications
+    ports:
+      - 3004:3004
     volumes:
       - .:/usr/src/app  
     env_file:
       - ./apps/notifications/.env   
-  mongo:
-    image: mongo
-    networks:
-      default:
-        ipv4_address: 10.5.0.11
+  mysql:
+    image: mysql
+    env_file:
+      - .env
+    ports:
+      - 3306:3306
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - 5672:5672
+      - 15672:15672
+
         
