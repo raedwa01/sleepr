@@ -30,8 +30,6 @@ services:
       dockerfile: ./apps/payments/Dockerfile
       target: development
     command: pnpm run start:dev payments
-    ports:
-      - 3003:3003
     volumes:
       - .:/usr/src/app  
     env_file:
@@ -42,8 +40,6 @@ services:
       dockerfile: ./apps/notifications/Dockerfile
       target: development
     command: pnpm run start:dev notifications
-    ports:
-      - 3004:3004
     volumes:
       - .:/usr/src/app  
     env_file:
