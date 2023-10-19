@@ -47,7 +47,19 @@ services:
     volumes:
       - .:/usr/src/app  
     env_file:
-      - ./apps/notifications/.env   
+      - ./apps/notifications/.env  
+  gateway:
+    build:
+      context: .
+      dockerfile: ./apps/gateway/Dockerfile
+      target: development
+    command: pnpm run start:dev gateway
+    ports:
+      - 3005:3005
+    volumes:
+      - .:/usr/src/app  
+    env_file:
+      - ./apps/gateway/.env       
   mysql:
     image: mysql
     env_file:
